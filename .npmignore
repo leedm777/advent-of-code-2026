@@ -1,0 +1,4 @@
+**/*.spec.ts
+.node-version
+.editorconfig
+*.config.ts

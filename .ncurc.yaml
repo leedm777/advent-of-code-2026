@@ -1,0 +1,9 @@
+---
+#
+# npm-check-updates config
+#
+
+# check workspaces
+deep: true
+# give updates a while before picking them up; helps avoid trojans
+cooldown: 7
