@@ -1,0 +1,3 @@
+interface:
+  display_name: "AoC Example Tests"
+  short_description: "Populate example tests from local puzzle HTML"

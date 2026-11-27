@@ -69,15 +69,15 @@ export function part2(input: string[]) {
 EOF
 
 cat <<EOF > "src/day${year_day}.spec.ts"
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it } from "vitest";
 import { part1, part2 } from "./day${year_day}.ts";
 import { readInput } from "./aoc.ts";
 
-const puzzleInput = readInput("./inputs/day${day}.txt");
+const puzzleInput = readInput("./inputs/day${year_day}.txt");
 const exampleInput = [
 ];
 
-describe("day${day}", () => {
+describe("day${year_day}", () => {
   describe("part 1", () => {
     it("should work with the sample", () => {
       const actual = part1(exampleInput);
