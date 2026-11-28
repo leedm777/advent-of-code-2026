@@ -25,6 +25,7 @@
     "test:watch": "vitest watch",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
     "prepare": "husky"
   },
   "dependencies": {
