@@ -3,8 +3,9 @@ name: aoc-example-tests
 description: |
   Update src/dayYYDD.spec.ts with example inputs and expected outputs from
   inputs/dayYYDD.html for the current src/dayYYDD.ts or src/dayYYDD.spec.ts
-  file. Use when asked to populate Advent of Code example tests; exclude solver
-  implementation and personal-input answers.
+  file. Use when asked to populate Advent of Code example tests, including a
+  follow-up "part 2" request; exclude solver implementation and personal-input
+  answers.
 ---
 
 # Advent of Code Example Tests
@@ -24,6 +25,11 @@ Save learners from copying examples. Keep the solution theirs.
   statements or input, read auth cookies, or fetch external solutions. If a
   required file is missing, report its path and ask the user to supply it or run
   their prep workflow.
+- Part 2 appears only after Part 1 is complete. Human reruns `prep.sh` to fetch
+  its text. A follow-up "part 2" requests Part 2 example-test updates for the
+  current puzzle. Reread `inputs/dayYYDD.html` from disk; do not reuse cached
+  statement text. If Part 2 is absent, ask human to rerun `prep.sh`. Preserve
+  Part 1 tests; reuse their example inputs when Part 2 refers back to them.
 - Read the local HTML statement and update matching tests with example inputs
   and stated outputs. Use the requested or active part. Do not inspect later
   parts. If part ambiguity affects edits, ask before reading that section.
@@ -59,6 +65,10 @@ Save learners from copying examples. Keep the solution theirs.
 - Keep `"TODO"` as the placeholder for expectations without a published example
   value; do not replace it with a numeric sentinel or change solver
   placeholders.
+- When filling a sample, remove its `.skip` and associated
+  `vitest/no-disabled-tests` suppression so the sample executes. If its
+  enclosing suite is skipped, enable that suite while keeping unfinished tests
+  skipped. Preserve skips and suppressions for unrelated or unfilled tests.
 - Do not invent edge cases, reveal an algorithm, or explain solution strategy.
 
 ## Verify and report

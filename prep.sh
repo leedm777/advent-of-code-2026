@@ -20,8 +20,20 @@ problem=./inputs/day${year_day}.html
 input=./inputs/day${year_day}.txt
 url=https://adventofcode.com/${year}/day/$((10#${day}))
 
+# always fetch the puzzle text, since it updates for part 2
+mkdir -p ./inputs/
+curl \
+  --output "${problem}" \
+  --fail \
+  --cookie .cookies.txt \
+  "${url}"
+
+if test $? -ne 0; then
+  echo "${problem} failed to download" >&2
+  exit 1
+fi
+
 if ! test -e "${input}"; then
-  mkdir -p ./inputs/
   curl \
     --output "${input}" \
     --fail \
@@ -34,19 +46,6 @@ if ! test -e "${input}"; then
   fi
 fi
 
-if ! test -e "${problem}"; then
-  mkdir -p ./inputs/
-  curl \
-    --output "${problem}" \
-    --fail \
-    --cookie .cookies.txt \
-    "${url}"
-
-  if test $? -ne 0; then
-    echo "${problem} failed to download" >&2
-    exit 1
-  fi
-fi
 
 if test -e src/day"${year_day}".ts; then
   echo "day${day}.ts already exists" >&2
@@ -83,7 +82,8 @@ describe("day${year_day}", () => {
       const actual = part1(exampleInput);
       expect(actual).toStrictEqual("TODO");
     });
-    it("should work with the puzzle input", () => {
+    // eslint-disable-next-line vitest/no-disabled-tests
+    it.skip("should work with the puzzle input", () => {
       const actual = part1(puzzleInput);
       expect(actual).toStrictEqual("TODO");
     });

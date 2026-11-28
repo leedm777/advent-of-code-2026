@@ -1,4 +1,5 @@
 import _ from "lodash";
+import * as aoc from "./aoc.ts";
 
 const Keypad = [
   [1, 2, 3],
@@ -41,7 +42,65 @@ export function part1(input: string[]) {
   return val;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const Keypad2 = [
+  [null, null, "1", null, null],
+  [null, "2", "3", "4", null],
+  ["5", "6", "7", "8", "9"],
+  [null, "A", "B", "C", null],
+  [null, null, "D", null, null],
+];
+
+const Moves = {
+  U: [-1, 0],
+  D: [1, 0],
+  L: [0, -1],
+  R: [0, 1],
+};
+
+export function keypadMove(
+  keypad: (string | null)[][],
+  pos: number[],
+  direction: keyof typeof Moves,
+): number[] {
+  const nextPos = aoc.move(pos, Moves[direction]);
+  const nextCh = _.get(keypad, nextPos);
+  if (_.isNil(nextCh)) {
+    // if off the board, do not move
+    return pos;
+  }
+  return nextPos;
+}
+
+export function isMove(ch: string): ch is keyof typeof Moves {
+  return Object.hasOwn(Moves, ch);
+}
+
+export function keypadMoveAll(
+  keypad: (string | null)[][],
+  pos: number[],
+  directions: string,
+): number[] {
+  return _.reduce(
+    directions,
+    (pos, direction) => {
+      if (!isMove(direction)) throw new Error("Invalid move type");
+      return keypadMove(keypad, pos, direction);
+    },
+    pos,
+  );
+}
 export function part2(input: string[]) {
-  return "TODO";
+  const { acc: res } = _.reduce(
+    input,
+    ({ pos, acc }, directions) => {
+      const nextPos = keypadMoveAll(Keypad2, pos, directions);
+      const nextCh = _.get(Keypad2, nextPos);
+      return {
+        pos: nextPos,
+        acc: `${acc}${nextCh}`,
+      };
+    },
+    { pos: [2, 0], acc: "" },
+  );
+  return res;
 }
