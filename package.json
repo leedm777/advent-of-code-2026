@@ -16,6 +16,9 @@
   "license": "MIT",
   "author": "David M. Lee, II <leedm777@yahoo.com>",
   "type": "module",
+  "engines": {
+    "node": ">=26.13.1"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node src/main.ts",
